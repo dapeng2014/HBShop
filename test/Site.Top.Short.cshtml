@@ -1,0 +1,106 @@
+﻿@using Com.Fuwu.Common.Web.Configurations
+<div class="mod-toolbar mod-toolbar-mini">
+    <div class="toolbar dynamic-content" ng-controller="UserNavTop">
+        <div class="toolbar">
+            <p class="tb-logo"><a href="@Hosts.Default.Www" class="tb-logo-link" title="福务首页">福务网首页</a></p>
+            <ul class="tb-nav">
+                <li class="toolbar-item tb-nav-index"><a href="@Hosts.Default.Www" title="福务网首页">福务网首页</a></li>
+                <li class="toolbar-item toolbar-interval"></li>
+                <li class="toolbar-item tb-nav-cate all-categories">
+                    <div class="menu-hd"><i class="ico-cate"></i><a href="@(Hosts.Default.Www+"/Home/Class/")" title="">全部福务分类</a><i class="ico-drop hide"></i></div>
+                    <div class="tb-cate-con hide dynamic-content" style="left: -236px;display:none!important" ng-controller="AllCategories">
+                        <ul class="tb-cate-list">
+                            <li ng-repeat="parent in categories | filter:isRoot" class="root-cate">
+                                <a href="{{'/Search?ct='+parent.CategoryNo}}"><h4 class="tb-cate-list-hd"><i class="i01"></i><span class="c693" ng-bind="parent.CategoryName"></span></h4></a>
+                                <div ng-repeat="child in children(parent)" class="parent-cate tb-cate-second">
+                                    <h5 class="tb-cate-list-hd"><span ng-bind="child.CategoryName"></span></h5>
+                                    <p class="tb-cate-list-bd leaf-cate" ng-show="false">
+                                        <a href="{{'/Search?ct='+leaf.CategoryNo}}" ng-repeat="leaf in children(child)" ng-bind="leaf.CategoryName"></a>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class="tb-login-info" ng-if="!user" ng-cloak>
+                <li class="toolbar-item tb-search">
+                    <i class="icon-drop"></i>
+                    <div class="search-tab search-tri">
+                        <ul>
+                            <li class="selected"><a href="#" st="0">找福务</a></li>
+                            <li><a href="#" st="1">找褔师</a></li>
+                        </ul>
+                    </div>
+                    <form action="@(Hosts.Default.Www + "/Search")" class="search-form">
+                        <input type="hidden" name="app" value="0">
+                        <input type="hidden" name="Ord" value="1">
+                        <input type="text" name="q" class="inpt">
+                        <input type="submit" class="tb-btn-search" />
+                    </form>
+                </li>
+                <li class="toolbar-item tb-my-center"><em>你好，<a href="@(Hosts.Default.UserCenter + "/Login")">请登录</a></em></li>
+                <li class="toolbar-item tb-fuwu-center">
+                    <span class="nomarl">
+                        <i class="ico-fw-fuke"></i><a href="@(Hosts.Default.UserCenter + "/Register")" rel="nofollow">成为福客</a>
+                    </span>
+                </li>
+                <li class="toolbar-item tb-fuwu-center">
+                    <span class="nomarl">
+                        <i class="ico-fw-center"></i><a href="@(Hosts.Default.UserCenter + "/RegisterProvider")" rel="nofollow">成为福师</a>
+                    </span>
+                </li>
+            </ul>
+            <ul class="tb-login-info" ng-if="user" ng-cloak>
+                <li class="toolbar-item tb-search">
+                    <i class="icon-drop"></i>
+                    <div class="search-tab search-tri">
+                        <ul>
+                            <li class="selected"><a href="#" st="0">找福务</a></li>
+                            <li><a href="#" st="1">找褔师</a></li>
+                        </ul>
+                    </div>
+                    <form action="@(Hosts.Default.Www + "/Search")" class="search-form">
+                        <input type="hidden" name="app" value="0">
+                        <input type="hidden" name="Ord" value="1">
+                        <input type="text" name="q" class="inpt">
+                        <input type="submit" class="tb-btn-search" />
+                    </form>
+                </li>
+                <li class="toolbar-item tb-my-center"><em>你好，<a href="@Hosts.Default.UserCenter" class="users-name" ng-bind="user.NickName"></a></em></li>
+                <li class="toolbar-item item-msg2" style="z-index:500">
+                    <div class="menu">
+                        <div class="menu-hd"><i class="ico-email"></i><a href="@Hosts.Default.UserCenter/notice/index" target="_blank">消息<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.TotalMessageCount" ng-if="user.TotalMessageCount"></i></a><i class="ico-msg"></i><i class="ico-drop"></i></div>
+                        <div class="menu-bd">
+                            <p><a href="@Hosts.Default.UserCenter/notice/index?type=2">订单提醒<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.OrderMessageCount" ng-if="user.OrderMessageCount"></i></a></p>
+                            <p><a href="@Hosts.Default.UserCenter/notice/index?type=1">开课通知<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.CourseMessageCount" ng-if="user.CourseMessageCount"></i></a></p>
+                            <p><a href="@Hosts.Default.UserCenter/notice/index?type=3">系统通知<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.SystemMessageCount" ng-if="user.SystemMessageCount"></i></a></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="toolbar-item tb-fuwu-center">
+                    <div class="menu">
+                        <div class="menu-hd"><i class="ico-fw-center"></i><a href="@Hosts.Default.Business/ProviderCenter">福师中心</a><i class="ico-drop"></i></div>
+                        <div class="menu-bd">
+                            <p><a href="@(Hosts.Default.Business + "/Order")">我提供的福务</a></p>
+                            <p><a href="@(Hosts.Default.Business + "/CoursePublish/Index")">免费发布</a></p>
+                            <p><a href="@(Hosts.Default.Business + "/CourseManagement/Index")">福务管理</a></p>
+                            <p><a href="@(Hosts.Default.Business + "/ProviderCenter/MyUser")">我的福客</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="toolbar-item tb-fuwu-center2">
+                    <div class="menu">
+                        <div class="menu-hd"><i class="ico-fw-fuke"></i><a href="@Hosts.Default.UserCenter">福客中心</a><i class="ico-drop"></i></div>
+                        <div class="menu-bd">
+                            <p><a href="@(Hosts.Default.UserCenter + "/MyCourse/Index")">我获得的福务</a></p>
+                            <p><a href="@(Hosts.Default.UserCenter + "/MySubscibe/Index")">我的订阅</a></p>
+                            <p><a href="@(Hosts.Default.UserCenter + "/Favorite/Index")">我的收藏</a></p>
+                        </div>
+                    </div>
+                </li>
+                <li class="toolbar-item tb-loginout"><i class="ico-loginout"></i><a href="@(Hosts.Default.UserCenter + "/Login/LogOff")">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@using Com.Fuwu.Common.Web.Configurations
+@{
+    var showRightAside = ViewBag.HideRightAside == null;
+}
+@if (showRightAside)
+{
+    <ul class="fixed-aside goto-btns dynamic-content" id="J_fixed_aside" ng-controller="IMMessages">
+        <li class="fixed-goTop"><a href="#" title="返回顶部" id="J_goTop"></a></li>
+        <li class="fixed-research"><a href="@Hosts.Default.HelpCenter" target="_blank" title="反馈"></a></li>
+        <li class="fixed-cart"><a href="@Hosts.Default.UserCenter/Order" title="我的订单"></a></li>
+        <li class="fixed-im" ng-class="{'fixed-im-num':UnReadIMMMsgCount>0}"><a href="javascript:void(startIM('DoLivimMe', null))" title="IM消息"><i class="numb" ng-bind="UnReadIMMMsgCount">0</i></a></li>
+    </ul>
+}
