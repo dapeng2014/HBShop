@@ -1,0 +1,60 @@
+﻿@using Com.Fuwu.Common.Web.Configurations
+@{
+    var hideReturnHomeLink = ViewBag.HideReturnHomeLink != null;
+}
+<div class="mod-toolbar main-top">
+    <div class="toolbar dynamic-content" ng-controller="UserNavTop">
+        <div class="toolbar-nomarl ng-cloak" ng-if="!user && userDone">
+            @if (!hideReturnHomeLink)
+            {
+                <a href="@Hosts.Default.Www" class="fuwuHome">福务网首页</a>
+            }
+            <span>你好，</span><a href="@(Hosts.Default.UserCenter + "/Login")" rel="nofollow">请登录</a>
+        </div>
+        <ul class="toolbar-hd ng-cloak" ng-if="user">
+            @if (!hideReturnHomeLink)
+            {
+                <li class="toolbar-item"><a href="@Hosts.Default.Www" class="fuwuHome">福务网首页</a></li>
+            }
+            <li class="toolbar-item login-info">
+                <div class="menu-hd"><span class="welcome">你好，</span><a href="@Hosts.Default.UserCenter" rel="nofollow" class="users-name" ng-bind="user.NickName"></a></div>
+            </li>
+            <li class="toolbar-item item-msg2" style="z-index:500;">
+                <div class="menu">
+                    <div class="menu-hd">
+                        <i class="ico-email"></i><a href="@Hosts.Default.UserCenter/notice/index" rel="nofollow" target="_blank">
+    消息<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.TotalMessageCount" ng-if="user.TotalMessageCount">0</i>
+</a><i class="ico-msg"></i><i class="ico-drop"></i>
+                    </div>
+                    <div class="menu-bd">
+                        <p><a href="@Hosts.Default.UserCenter/notice/index?type=2" rel="nofollow">订单提醒<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.OrderMessageCount" ng-if="user.OrderMessageCount">0</i></a></p>
+                        <p><a href="@Hosts.Default.UserCenter/notice/index?type=1" rel="nofollow">开课通知<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.CourseMessageCount" ng-if="user.CourseMessageCount">0</i></a></p>
+                        <p><a href="@Hosts.Default.UserCenter/notice/index?type=3" rel="nofollow">系统通知<i class="numb" style="color: #FF4401; font-family: arial; font-weight: bold; margin: 0 6px;" ng-bind="user.SystemMessageCount" ng-if="user.SystemMessageCount">0</i></a></p>
+                    </div>
+                </div>
+            </li>
+            <li class="toolbar-item tb-loginout"><i class="ico-loginout"></i><a href="@(Hosts.Default.UserCenter + "/Login/LogOff")" rel="nofollow">退出</a></li>
+        </ul>
+        <ul class="toolbar-bd">
+            <li class="toolbar-item" style="display: none;">
+                <div class="menu-hd"><a href="@Hosts.Default.Www">返回首页</a></div>
+            </li>
+            @*<li class="toolbar-item item-mobile">
+                <div class="menu-hd"><i class="ico-mobile"></i><a href="@Hosts.Default.Wap" target="_blank">手机福务</a></div>
+            </li>
+            <li class="toolbar-item toolbar-interval"></li>
+            <li class="toolbar-item item-site">
+                <div class="menu">
+                    <div class="menu-hd"><a href="@(Hosts.Default.Www + "/SiteMap")" target="_blank">网站导航</a><i class="ico-drop"></i></div>
+                    <div class="menu-bd" style="width: 64px;">dsfsd</div>
+                </div>
+            </li>
+            <li class="toolbar-item toolbar-interval"></li>*@
+            <li class="toolbar-item item-help">
+                <div class="menu-hd"><a href="@Hosts.Default.HelpCenter" rel="nofollow" target="_blank">帮助中心</a></div>
+            </li>
+            <li class="toolbar-item toolbar-interval"></li>
+            <li class="toolbar-item item-tel"><i class="ico-tel"></i>福务热线 @Com.Fuwu.Common.Web.Configurations.App.Default.ContactPhone </li>
+        </ul>
+    </div>
+</div>
